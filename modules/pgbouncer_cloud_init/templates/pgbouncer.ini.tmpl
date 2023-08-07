@@ -28,3 +28,9 @@ application_name_add_host = 1
 
 ${custom_config}
 %{~ endif ~}
+
+%{ if logging_config == "" ~}
+# --- Logging Config --- #
+
+${logging_config}
+%{~ endif ~}

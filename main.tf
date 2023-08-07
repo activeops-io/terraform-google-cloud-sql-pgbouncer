@@ -19,6 +19,7 @@ module "pgbouncer_cloud_init" {
   max_db_connections  = var.max_db_connections
   max_client_conn     = var.max_client_connections
   pool_mode           = var.pool_mode
+  logging_config       = var.pgbouncer_logging_config
   custom_config       = var.pgbouncer_custom_config
 }
 

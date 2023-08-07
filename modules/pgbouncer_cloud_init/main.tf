@@ -15,6 +15,7 @@ locals {
       max_client_conn    = var.max_client_conn
       pool_mode          = var.pool_mode
       admin_users        = join(",", local.admins)
+      logging_config     = var.logging_config
       custom_config      = var.custom_config
     }
   )

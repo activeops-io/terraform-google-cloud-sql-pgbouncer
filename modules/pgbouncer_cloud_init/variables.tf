@@ -61,6 +61,12 @@ variable "max_client_conn" {
   default     = 0
 }
 
+variable "logging_config" {
+  description = "Custom PgBouncer Logging configuration values to be appended to `pgbouncer.ini`."
+  type        = string
+  default     = ""
+}
+
 variable "custom_config" {
   description = "Custom PgBouncer configuration values to be appended to `pgbouncer.ini`."
   type        = string

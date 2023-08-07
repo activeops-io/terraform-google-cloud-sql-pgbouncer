@@ -66,6 +66,12 @@ variable "max_db_connections" {
   default     = 0
 }
 
+variable "pgbouncer_logging_config" {
+  description = "Custom PgBouncer Logging configuration values to be appended to `pgbouncer.ini`."
+  type        = string
+  default     = ""
+}
+
 variable "pgbouncer_custom_config" {
   description = "Custom PgBouncer configuration values to be appended to `pgbouncer.ini`."
   type        = string
