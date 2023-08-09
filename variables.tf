@@ -91,6 +91,12 @@ variable "subnetwork" {
   default     = null
 }
 
+variable "private_ip_address" {
+  description = "The private IP address to assign to the PgBouncer instance. If not given, one will be generated."
+  type        = string
+  default     = null
+}
+
 variable "public_ip_address" {
   description = "The public IP address to assign to the PgBouncer instance. If not given, one will be generated. Note: setting this value will limit the instance count to 1."
   type        = string

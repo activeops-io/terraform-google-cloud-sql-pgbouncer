@@ -55,8 +55,8 @@ resource "google_compute_instance" "pgbouncer" {
   }
 
   network_interface {
-    subnetwork         = var.subnetwork
-    subnetwork_project = var.project
+    subnetwork = var.subnetwork
+    network_ip = var.private_ip_address
 
     dynamic "access_config" {
       for_each = var.disable_public_ip ? [] : [1]
@@ -71,30 +71,4 @@ resource "google_compute_instance" "pgbouncer" {
   }
 
   allow_stopping_for_update = true
-
-  depends_on = [null_resource.module_depends_on]
-}
-
-/* Misc --------------------------------------------------------------------- */
-
-# restart instance when users are updated, added or removed
-
-resource "null_resource" "user_updater" {
-  triggers = {
-    users = join("", [for u in var.users : join("", values(u))])
-  }
-  provisioner "local-exec" {
-    on_failure = continue
-    command    = "gcloud compute instances reset --project '${var.project}' --zone '${var.zone}' '${google_compute_instance.pgbouncer.name}'"
-  }
-}
-
-# inject external dependencies into module
-
-resource "null_resource" "module_depends_on" {
-  count = length(var.module_depends_on) > 0 ? 1 : 0
-
-  triggers = {
-    value = length(var.module_depends_on)
-  }
 }
