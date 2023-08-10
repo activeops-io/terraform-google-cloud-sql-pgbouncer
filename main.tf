@@ -23,11 +23,6 @@ module "pgbouncer_cloud_init" {
   custom_config       = var.pgbouncer_custom_config
 }
 
-data "google_compute_image" "boot" {
-  project = split("/", var.boot_image)[0]
-  family  = split("/", var.boot_image)[1]
-}
-
 resource "google_compute_instance" "pgbouncer" {
   project      = var.project
   name         = var.name
@@ -46,11 +41,15 @@ resource "google_compute_instance" "pgbouncer" {
   metadata = {
     google-logging-enabled = var.disable_service_account ? null : true
     user-data              = module.pgbouncer_cloud_init.cloud_config
+    enable-oslogin         = var.enable_oslogin ? null : true
+    pgbouncer-version      = var.pgbouncer_image_tag
   }
+
+  metadata_startup_script = var.pgbouncer_startup_script
 
   boot_disk {
     initialize_params {
-      image = data.google_compute_image.boot.self_link
+      image = var.boot_image
     }
   }
 

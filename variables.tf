@@ -78,6 +78,12 @@ variable "pgbouncer_custom_config" {
   default     = ""
 }
 
+variable "pgbouncer_startup_script" {
+  description = "Custom PgBouncer startup configuration to be added to the instance startup-srcipt."
+  type        = string
+  default     = ""
+}
+
 variable "pgbouncer_image_tag" {
   description = "The tag to use for the base PgBouncer `edoburu/pgbouncer` Docker image used by this module."
   default     = "latest"
@@ -139,6 +145,11 @@ variable "disable_public_ip" {
 variable "disable_service_account" {
   description = "Flag to disable attaching a service account to the PgBouncer instance."
   default     = false
+}
+
+variable "enable_oslogin" {
+  description = "Flag to enable oslogin on the PgBouncer instance."
+  default     = true
 }
 
 /* Misc --------------------------------------------------------------------- */
